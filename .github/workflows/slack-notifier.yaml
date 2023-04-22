@@ -1,0 +1,47 @@
+name: test release 
+
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Get previous tag
+        id: previousTag
+        run: |
+          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | tail -2 | head -1)
+          echo "previousTag: $name"
+          echo "previousTag=$name" >> $GITHUB_ENV
+          
+      - name: Generate change log
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          fromTag: ${{ github.ref_name }}
+          toTag: ${{ env.previousTag }}
+          writeToFile: false
+          
+      - name: Parse slack change log
+        id: slack-changelog
+        uses: peterchanxyz/slack-markdown-action@v1
+        with:
+          text: "weg-credit build version ${{ github.ref_name }}"
+          changelog: ${{ steps.changelog.outputs.changes }}
+          
+      - name: Slack Notification Release Notes
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          channel-id: "C054F62F1C4"
+          payload: ${{ steps.slack-changelog.outputs.payload }}
+        env:
+          SLACK_BOT_TOKEN: xoxb-658515049744-5134237503543-lZfn4JIYSKAV0NHhgoZkbKeL
