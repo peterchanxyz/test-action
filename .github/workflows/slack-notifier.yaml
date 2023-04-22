@@ -29,6 +29,7 @@ jobs:
           token: ${{ github.token }}
           fromTag: ${{ github.ref_name }}
           toTag: ${{ env.previousTag }}
+          includeInvalidCommits: 'true'
           title: "weg-credit build version ${{ github.ref_name }}"
           
       - name: Slack Notification Release Notes
