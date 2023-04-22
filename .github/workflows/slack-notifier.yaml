@@ -24,24 +24,17 @@ jobs:
           
       - name: Generate change log
         id: changelog
-        uses: requarks/changelog-action@v1
+        uses: peterchanxyz/changelog-action@v1
         with:
           token: ${{ github.token }}
           fromTag: ${{ github.ref_name }}
           toTag: ${{ env.previousTag }}
-          writeToFile: false
-          
-      - name: Parse slack change log
-        id: slack-changelog
-        uses: peterchanxyz/slack-markdown-action@v1
-        with:
-          text: "weg-credit build version ${{ github.ref_name }}"
-          changelog: ${{ steps.changelog.outputs.changes }}
+          title: "weg-credit build version ${{ github.ref_name }}"
           
       - name: Slack Notification Release Notes
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          payload: ${{ steps.slack-changelog.outputs.payload }}
+          payload: ${{ steps.changelog.outputs.payload }}
         env:
           SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
