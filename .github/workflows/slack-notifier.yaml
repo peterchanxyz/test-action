@@ -24,7 +24,7 @@ jobs:
           
       - name: Generate change log
         id: changelog
-        uses: peterchanxyz/changelog-action@v1.1
+        uses: peterchanxyz/changelog-action@v1.2
         with:
           token: ${{ github.token }}
           fromTag: ${{ github.ref_name }}
