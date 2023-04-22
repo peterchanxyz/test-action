@@ -41,7 +41,7 @@ jobs:
       - name: Slack Notification Release Notes
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          channel-id: "weg-credit-gitops"
           payload: ${{ steps.slack-changelog.outputs.payload }}
         env:
-          SLACK_BOT_TOKEN:  ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
