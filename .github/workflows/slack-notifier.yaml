@@ -44,4 +44,4 @@ jobs:
           channel-id: "C054F62F1C4"
           payload: ${{ steps.slack-changelog.outputs.payload }}
         env:
-          SLACK_BOT_TOKEN: xoxb-658515049744-5134237503543-lZfn4JIYSKAV0NHhgoZkbKeL
+          SLACK_BOT_TOKEN:  ${{ secrets.SLACK_BOT_TOKEN }}
