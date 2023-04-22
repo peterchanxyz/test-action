@@ -35,7 +35,7 @@ jobs:
       - name: Slack Notification Release Notes
         uses: slackapi/slack-github-action@v1.23.0
         with:
-          payload: ${{ steps.changelog.outputs.payload }}
+          payload: "${{ steps.changelog.outputs.payload }}"
         env:
           SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
