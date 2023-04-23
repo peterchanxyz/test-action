@@ -24,7 +24,7 @@ jobs:
           
       - name: Notification Slack change log
         id: changelog
-        uses: peterchanxyz/changelog-action@v1.5
+        uses: peterchanxyz/changelog-action@v1.6
         with:
           token: ${{ github.token }}
           fromTag: ${{ github.ref_name }}
