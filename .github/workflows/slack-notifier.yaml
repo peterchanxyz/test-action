@@ -22,8 +22,7 @@ jobs:
           echo "previousTag: $name"
           echo "previousTag=$name" >> $GITHUB_ENV
 
-      - name: Notification Slack build status
-        id: changelog
+      - name: Notification Slack build statusß
         uses: peterchanxyz/notify-slack-action@master
         if: always()
         with:
